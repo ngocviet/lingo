@@ -15,8 +15,8 @@ export const Header = () => {
     <header className="h-20 w-full border-b-2 border-slate-200 px-4">
       <div className="lg:max-w-screen-lg mx-auto flex items-center justify-between h-full">
         <div className="pt-8 pl-4 pb-7 flex items-center gap-x-3">
-          <Image src="/home.svg" height={40} width={40} alt="Home" />
-          <h1 className="text-amber-700 tracking-wide text-2xl font-extrabold">
+          <Image src="/logo.svg" height={70} width={70} alt="Home" />
+          <h1 className="text-gray-800 tracking-wide text-2xl font-extrabold">
             Lingo
           </h1>
         </div>
