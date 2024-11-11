@@ -32,7 +32,7 @@ const Sidebar = ({ className }: Props) => {
           href="/leaderBoard"
           inconSrc="/leaderboard.svg"
         />
-        <SidebarItem label="Quests" href="/quests" inconSrc="/quests.svg" />
+        <SidebarItem label="Quests" href="/quests" inconSrc="/target.svg" />
         <SidebarItem label="Shop" href="/shop" inconSrc="/shop.svg" />
       </div>
       <div className="p-4">
