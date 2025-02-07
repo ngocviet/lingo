@@ -24,8 +24,11 @@ export const List = ({ courses, activeCourseId }: Props) => {
     }
 
     startTransition(() => {
-      // upsertUserProcess(id).catch(() => toast.error("Something went wrong."));
-      upsertUserProcess(id);
+      upsertUserProcess(id)
+        .then(() => toast.success("Updated successfully."))
+        .catch((error) =>
+          toast.error(error.message || "Something went wrong.")
+        );
     });
   };
 
