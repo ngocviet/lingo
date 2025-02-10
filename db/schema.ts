@@ -77,7 +77,7 @@ export const challengesRelations = relations(challenges, ({ one, many }) => ({
 
 export const challengeOptions = pgTable("challenge_options", {
   id: serial("id").primaryKey(),
-  challengesId: integer("challenges_id")
+  challengeId: integer("challenge_id")
     .references(() => challenges.id, { onDelete: "cascade" })
     .notNull(),
   type: challengesEnum("type").notNull(),
@@ -91,7 +91,7 @@ export const challengeOptionsRelations = relations(
   challengeOptions,
   ({ one, many }) => ({
     challenge: one(challenges, {
-      fields: [challengeOptions.challengesId],
+      fields: [challengeOptions.challengeId],
       references: [challenges.id],
     }),
   })
@@ -100,7 +100,7 @@ export const challengeOptionsRelations = relations(
 export const challengeProgress = pgTable("challenge_progress", {
   id: serial("id").primaryKey(),
   userId: text("user_id").notNull(),
-  challengesId: integer("challenges_id")
+  challengeId: integer("challenge_id")
     .references(() => challenges.id, { onDelete: "cascade" })
     .notNull(),
   completed: boolean("completed").notNull().default(false),
@@ -110,7 +110,7 @@ export const challengeProgressRelations = relations(
   challengeProgress,
   ({ one, many }) => ({
     challenge: one(challenges, {
-      fields: [challengeProgress.challengesId],
+      fields: [challengeProgress.challengeId],
       references: [challenges.id],
     }),
   })

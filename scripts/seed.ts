@@ -95,12 +95,25 @@ const main = async () => {
         type: "SELECT",
         question: "Which one of these is the 'the man'?",
       },
+      {
+        id: 2,
+        lessonId: 1,
+        order: 2,
+        type: "ASSIST",
+        question: "the man",
+      },
+      {
+        id: 3,
+        lessonId: 1,
+        order: 3,
+        type: "SELECT",
+        question: "Which one of these is the 'the robot'?",
+      },
     ]);
 
     await db.insert(schema.challengeOptions).values([
       {
-        id: 1,
-        challengesId: 1,
+        challengeId: 1,
         type: "SELECT",
         correct: true,
         imageSrc: "/man.svg",
@@ -108,8 +121,7 @@ const main = async () => {
         audioSrc: "/es_man.mp3",
       },
       {
-        id: 2,
-        challengesId: 1,
+        challengeId: 1,
         type: "SELECT",
         correct: false,
         imageSrc: "/woman.svg",
@@ -117,10 +129,60 @@ const main = async () => {
         audioSrc: "/es_woman.mp3",
       },
       {
-        id: 3,
-        challengesId: 1,
+        challengeId: 1,
         type: "SELECT",
         correct: false,
+        imageSrc: "/robot.svg",
+        text: "el robot",
+        audioSrc: "/es_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 2,
+        type: "SELECT",
+        correct: true,
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengeId: 2,
+        type: "SELECT",
+        correct: false,
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengeId: 2,
+        type: "SELECT",
+        correct: false,
+        text: "el robot",
+        audioSrc: "/es_robot.mp3",
+      },
+    ]);
+
+    await db.insert(schema.challengeOptions).values([
+      {
+        challengeId: 3,
+        type: "SELECT",
+        correct: false,
+        imageSrc: "/man.svg",
+        text: "el hombre",
+        audioSrc: "/es_man.mp3",
+      },
+      {
+        challengeId: 3,
+        type: "SELECT",
+        correct: false,
+        imageSrc: "/woman.svg",
+        text: "la mujer",
+        audioSrc: "/es_woman.mp3",
+      },
+      {
+        challengeId: 3,
+        type: "SELECT",
+        correct: true,
         imageSrc: "/robot.svg",
         text: "el robot",
         audioSrc: "/es_robot.mp3",
