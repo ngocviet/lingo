@@ -1,20 +1,22 @@
 "use client";
 
-import { challengeOptions, challenges } from "@/db/schema";
-import { useState, useTransition } from "react";
-import Header from "./header";
-import { QuestionBubble } from "./question-bubble";
-import { Challenge } from "./challenge";
-import Footer from "./footer";
-import { CornerLeftUpIcon } from "lucide-react";
-import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
-import { reduceHearts } from "@/actions/user-process";
-import { useAudio, useWindowSize } from "react-use";
 import Image from "next/image";
-import ResultCard from "./result-card";
-import { useRouter } from "next/navigation";
 import Confetti from "react-confetti";
+import { useAudio, useWindowSize } from "react-use";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useTransition } from "react";
+
+import { reduceHearts } from "@/actions/user-process";
+import { challengeOptions, challenges } from "@/db/schema";
+import { upsertChallengeProgress } from "@/actions/challenge-progress";
+
+import Header from "./header";
+import Footer from "./footer";
+import { Challenge } from "./challenge";
+import ResultCard from "./result-card";
+import { QuestionBubble } from "./question-bubble";
+import { useHeartsModal } from "@/store/use-hearts-modal";
 
 type Props = {
   initialLessonId: number;
@@ -34,12 +36,16 @@ const Quiz = ({
   initialPercentage,
   userSubscription,
 }: Props) => {
-  // const
+  const { open } = useHeartsModal();
+
+  const { width, height } = useWindowSize();
+
   const router = useRouter();
 
-  const [correctAudio, _c, correctControls] = useAudio({ src: "correct.wav" });
+  const [finishAudio, _f, finishControls] = useAudio({ src: "/finish.mp3" });
+  const [correctAudio, _c, correctControls] = useAudio({ src: "/correct.wav" });
   const [incorrectAudio, _i, incorrectControls] = useAudio({
-    src: "incorrect.wav",
+    src: "/incorrect.wav",
   });
 
   const [pending, startTransition] = useTransition();
@@ -132,10 +138,27 @@ const Quiz = ({
     }
   };
 
-  if (true || !challenge) {
+  useEffect(() => {
+    if (!challenge) {
+      const timeout = setTimeout(() => {
+        finishControls.play();
+      }, 1000); // Chờ 2 giây
+
+      return () => clearTimeout(timeout); // Dọn dẹp timeout nếu component bị unmount
+    }
+  }, [challenge]); // Chạy lại khi `challenge` thay đổi
+
+  if (!challenge) {
     return (
       <>
-        <Confetti recycle={false} numberOfPieces={500} tweenDuration={10000} />
+        {finishAudio}
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={500}
+          tweenDuration={10000}
+        />
         <div className="flex flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
           <Image
             src="/finish.svg"
@@ -176,6 +199,7 @@ const Quiz = ({
 
   return (
     <>
+      {finishAudio}
       {incorrectAudio}
       {correctAudio}
       <Header
