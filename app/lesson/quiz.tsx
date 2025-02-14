@@ -36,7 +36,7 @@ const Quiz = ({
   initialPercentage,
   userSubscription,
 }: Props) => {
-  const { open } = useHeartsModal();
+  const { open: openHeartsModal } = useHeartsModal();
 
   const { width, height } = useWindowSize();
 
@@ -103,7 +103,7 @@ const Quiz = ({
         upsertChallengeProgress(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              console.log("Missing hearts");
+              openHeartsModal();
               return;
             }
 
@@ -122,7 +122,7 @@ const Quiz = ({
         reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              console.error("Missing hearts");
+              openHeartsModal();
               return;
             }
 
