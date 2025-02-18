@@ -9,8 +9,9 @@ type Props = {
 };
 
 const LessonIdPage = async ({ params }: Props) => {
-  const lessonData = getLesson(params.lessonId);
-  const userProgressData = getUserProgress();
+  const { lessonId } = await params;
+  const lessonData = await getLesson(lessonId);
+  const userProgressData = await getUserProgress();
 
   const [lesson, userProgress] = await Promise.all([
     lessonData,

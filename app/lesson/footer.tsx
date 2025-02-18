@@ -38,7 +38,7 @@ const Footer = ({ onCheck, status, disabled, lessonId }: Props) => {
           <Button
             variant="default"
             size={isMobile ? "default" : "lg"}
-            onClick={() => (window.location.href = `/learn/${lessonId}`)}
+            onClick={() => (window.location.href = `/lesson/${lessonId}`)}
           >
             Practice again
           </Button>
